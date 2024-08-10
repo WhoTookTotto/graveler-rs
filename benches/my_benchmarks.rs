@@ -1,16 +1,14 @@
 use criterion::{criterion_group, criterion_main, Criterion};
 use rayon::iter::{IntoParallelIterator, ParallelIterator};
 
-
-const TRIES_PER_THREAD: usize = 1_000_00;
-
+const TRIES: usize = 1_000_00;
 const RUNS : usize = 10;
 
 fn my_benchmark(c: &mut Criterion) {
-    c.bench_function("roll_bits", |b| b.iter(|| run_threads()));
+    c.bench_function("roll_bits", |b| b.iter(|| run_parallel()));
 }
 
-fn run_threads() -> u8 {
+fn run_parallel() -> u8 {
     let r = (0..RUNS).into_par_iter().map(move |_| run_tries()).collect::<Vec<u8>>();
 
     let max = r.iter().max().unwrap();
@@ -23,8 +21,7 @@ fn run_tries() -> u8 {
 
     let mut max_ones = 0;
 
-    for _ in 0..TRIES_PER_THREAD {
-
+    for _ in 0..TRIES {
         let mut ones = 0;
 
         let mut rolls = [0u8; 231];

@@ -1,20 +1,19 @@
 use rayon::iter::{IntoParallelIterator, ParallelIterator};
 
-const TRIES_PER_THREAD: usize = 100_000;
-
+const TRIES: usize = 100_000;
 const RUNS : usize = 10;
 
 fn main() {
-    run_threads();
+    run_parallel();
 }
 
-fn run_threads() -> u8 {
+fn run_parallel() -> u8 {
     let r = (0..RUNS).into_par_iter().map(move |_| run_tries()).collect::<Vec<u8>>();
 
     let max = r.iter().max().unwrap();
 
     println!("Max: {}", max);
-    println!("Number of rolls: {}", RUNS*TRIES_PER_THREAD);
+    println!("Number of rolls: {}", RUNS*TRIES);
 
     *max
 }
@@ -24,8 +23,7 @@ fn run_tries() -> u8 {
 
     let mut max_ones = 0;
 
-    for _ in 0..TRIES_PER_THREAD {
-
+    for _ in 0..TRIES {
         let mut ones = 0;
 
         let mut rolls = [0u8; 231];
@@ -44,7 +42,6 @@ fn run_tries() -> u8 {
             }
         }
     }
-
-
+    
     max_ones
 }

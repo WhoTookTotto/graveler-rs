@@ -22,5 +22,24 @@ To run; clone the repo, make sure rust and cargo is installed.
 or `cargo bench` to run criterion benchmarks
 
 
+## Update
+
+After some time of trying to harness the power of my gpu using rust-cuda (unsuccesfully)
+i saw this comment by Csanády Bálint (https://github.com/arhourigan/graveler/issues/5#issuecomment-2282339144)
+i do as a matter of fact not have access to a A100 80GB GPU. so i ran the benchmarks again using a single thread and got these results:
+
+1,000,000 tries 37-38ms
+![image](https://github.com/user-attachments/assets/94b03557-ed82-4726-ba29-f5bc57191a41)
+
+1,000,000,000 tries 36-38s 
+![image](https://github.com/user-attachments/assets/b8a70e75-a12c-4b4f-ab45-cf62bd985fad)
+
+
+
+
+
+
+ 
+
 
 
